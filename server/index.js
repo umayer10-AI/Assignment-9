@@ -25,6 +25,7 @@ const run = async () => {
 
         const db = client.db("assignment-9")
         const userCollection = db.collection("allData")
+        const booking = db.collection('patientData')
 
         app.get("/user", async (req,res) => {
             const cursor = await userCollection.find()
@@ -35,6 +36,17 @@ const run = async () => {
         app.get('/user/:id', async (req,res) => {
             const {id} = req.params
             const result = await userCollection.findOne({_id: new ObjectId(id)})
+            res.send(result)
+        })
+
+        app.post('/booking', async (req,res) => {
+            const newPatient = req.body
+            const result = await booking.insertOne(newPatient)
+            res.send(result)
+        })
+
+        app.get('/booking', async (req,res) => {
+            const result = await booking.find().toArray()
             res.send(result)
         })
 
