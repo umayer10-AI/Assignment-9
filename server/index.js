@@ -46,7 +46,6 @@ const verifyData = async (req,res,next) => {
 
 const run = async () => {
     try {
-        await client.connect();
 
         const db = client.db("assignment-9")
         const userCollection = db.collection("allData")
@@ -81,7 +80,6 @@ const run = async () => {
 
             const result = await cursor.toArray()
             res.send(result)
-            console.log(req.url)
         })
 
         app.get('/user/:id',verifyData , async (req,res) => {
@@ -129,7 +127,6 @@ const run = async () => {
             res.send(result)
         })
 
-        await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // await client.close();
