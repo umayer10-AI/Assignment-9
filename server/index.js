@@ -75,7 +75,7 @@ const run = async () => {
             res.send(result)
         })
 
-        app.delete('/booking/:id', async (req,res) => {
+        app.delete('/booking/:id',verifyData , async (req,res) => {
             const {id} = req.params
             const filter ={
                 _id: new ObjectId(id)
