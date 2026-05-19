@@ -81,6 +81,7 @@ const run = async () => {
 
             const result = await cursor.toArray()
             res.send(result)
+            console.log(req.url)
         })
 
         app.get('/user/:id',verifyData , async (req,res) => {
