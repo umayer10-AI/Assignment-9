@@ -53,8 +53,10 @@ const run = async () => {
         const booking = db.collection('patientData')
 
         app.get("/user", async (req,res) => {
+
             const {search} = req.query
             let cursor;
+
             if(!search){
                 cursor = await userCollection.find()
             }
@@ -63,16 +65,22 @@ const run = async () => {
                     $or:[
                         {
                             name:{
-                                $regex: 
+                                $regex: search,
+                                $options: 'i'
+                            }
+                        },
+                        {
+                            description:{
+                                $regex: search,
+                                $options: 'i'
                             }
                         }
                     ]
                 })
             }
-            // const cursor = await userCollection.find()
+
             const result = await cursor.toArray()
             res.send(result)
-            console.log(search)
         })
 
         app.get('/user/:id',verifyData , async (req,res) => {
