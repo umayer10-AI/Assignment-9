@@ -64,7 +64,7 @@ const run = async () => {
             res.send(result)
         })
 
-        app.post('/booking', async (req,res) => {
+        app.post('/booking',verifyData , async (req,res) => {
             const newPatient = req.body
             const result = await booking.insertOne(newPatient)
             res.send(result)
